@@ -24,20 +24,25 @@
     .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
     h2 { font-size: 2em; margin: 40px 0 25px; color: var(--dark); border-bottom: 3px solid var(--primary); padding-bottom: 10px; }
     .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
-    .article-card { background: white; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all 0.3s; }
+    .article-card { background: white; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
     .article-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: translateY(-4px); border-color: var(--primary); }
     .article-image { width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%); display: flex; align-items: center; justify-content: center; font-size: 3em; }
-    .article-content { padding: 20px; }
-    .article-content h3 { font-size: 1.2em; margin-bottom: 10px; color: var(--dark); line-height: 1.4; }
-    .article-content p { color: #666; font-size: 0.95em; margin-bottom: 15px; }
-    .article-link { color: var(--primary); text-decoration: none; font-weight: bold; }
+    .article-image img { width: 100%; height: 100%; object-fit: cover; }
+    .article-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .article-content h3 { font-size: 1.2em; margin-bottom: 10px; color: var(--dark); line-height: 1.4; flex-grow: 1; }
+    .article-content p { color: #666; font-size: 0.95em; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .article-meta { font-size: 12px; color: #999; margin-bottom: 10px; }
+    .article-link { color: var(--primary); text-decoration: none; font-weight: bold; margin-top: auto; }
     .article-link:hover { text-decoration: underline; }
+    .loading { text-align: center; padding: 40px; color: #999; }
+    .error { background: #fee; color: #c33; padding: 15px; border-radius: 8px; margin: 20px 0; }
     .ad { background: var(--light); border: 2px solid var(--primary); padding: 20px; margin: 40px 0; min-height: 250px; border-radius: 8px; text-align: center; }
     .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 30px 0; }
     .category-btn { background: var(--primary); color: white; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; transition: all 0.3s; }
     .category-btn:hover { background: var(--dark); transform: translateY(-2px); }
     footer { background: var(--dark); color: white; padding: 40px 20px; margin-top: 60px; border-top: 3px solid var(--primary); text-align: center; }
     footer a { color: var(--primary); text-decoration: none; }
+    .no-articles { text-align: center; padding: 40px; color: #999; font-size: 1.1em; }
   </style>
 </head>
 <body>
@@ -70,60 +75,8 @@
   <div class="container">
     <h2>📰 Articles Récents</h2>
     
-    <div class="articles-grid">
-      <div class="article-card">
-        <div class="article-image">📊</div>
-        <div class="article-content">
-          <h3>Comment optimiser son épargne en 2026?</h3>
-          <p>Les meilleures stratégies pour augmenter votre patrimoine malgré l'inflation...</p>
-          <a href="#" class="article-link">Lire →</a>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">💹</div>
-        <div class="article-content">
-          <h3>L'indice CAC 40 atteint de nouveaux sommets</h3>
-          <p>Analyse des performances du marché français et des opportunités d'investissement...</p>
-          <a href="#" class="article-link">Lire →</a>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">₿</div>
-        <div class="article-content">
-          <h3>Bitcoin et Ethereum: où en est la crypto?</h3>
-          <p>Point complet sur les tendances du marché des cryptomonnaies...</p>
-          <a href="#" class="article-link">Lire →</a>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">🏦</div>
-        <div class="article-content">
-          <h3>Taux bancaires: comment trouver la meilleure offre?</h3>
-          <p>Comparatif des meilleurs taux de crédit et placements 2026...</p>
-          <a href="#" class="article-link">Lire →</a>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">📈</div>
-        <div class="article-content">
-          <h3>Actions vs obligations: quel est le meilleur choix?</h3>
-          <p>Guide complet pour choisir vos placements selon votre profil...</p>
-          <a href="#" class="article-link">Lire →</a>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">🏠</div>
-        <div class="article-content">
-          <h3>Immobilier: les prix baissent enfin en 2026</h3>
-          <p>Analyse du marché immobilier français et opportunités d'investissement...</p>
-          <a href="#" class="article-link">Lire →</a>
-        </div>
-      </div>
+    <div class="articles-grid" id="articles-container">
+      <div class="loading">⏳ Chargement des articles...</div>
     </div>
 
     <h2>🎯 Nos Catégories</h2>
@@ -145,7 +98,7 @@
     <ul style="margin: 20px 0 40px 20px; line-height: 1.8;">
       <li><strong>Fiabilité:</strong> Contenus vérifiés basés sur des sources officielles</li>
       <li><strong>Actualités quotidiennes:</strong> Suivez les dernières tendances économiques</li>
-      <li><strong>Experts reconnus:</strong> Analyses approfondies de professionnels</li>
+      <li><strong>Analyses approfondies:</strong> Décryptage des enjeux économiques et financiers</li>
       <li><strong>Transparent:</strong> Nous divulguons nos partenariats</li>
     </ul>
   </div>
@@ -159,6 +112,81 @@
 
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
+
+    /**
+     * Récupérer les articles depuis GitHub Pages
+     * Cherche les fichiers HTML dans les catégories
+     */
+    async function loadArticles() {
+      const container = document.getElementById('articles-container');
+      const articles = [];
+
+      // URLs des catégories pour récupérer les articles
+      const categories = [
+        { slug: 'finance', emoji: '📊', name: 'Finance' },
+        { slug: 'economie', emoji: '🏛️', name: 'Économie' },
+        { slug: 'crypto', emoji: '₿', name: 'Crypto' },
+        { slug: 'banques', emoji: '🏦', name: 'Banques' },
+        { slug: 'investissement', emoji: '📈', name: 'Investissement' },
+        { slug: 'immobilier', emoji: '🏠', name: 'Immobilier' }
+      ];
+
+      try {
+        // Récupérer les pages HTML des catégories
+        for (const cat of categories) {
+          try {
+            const response = await fetch(`/${cat.slug}/index.html`);
+            if (response.ok) {
+              const html = await response.text();
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(html, 'text/html');
+              
+              const title = doc.querySelector('h1');
+              const image = doc.querySelector('.article-image img, .hero-image');
+              const meta = doc.querySelector('.article-meta');
+              
+              if (title) {
+                articles.push({
+                  title: title.textContent.trim(),
+                  category: cat.name,
+                  emoji: cat.emoji,
+                  url: `/${cat.slug}/`,
+                  image: image?.src || `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect fill="%23d4a574" width="300" height="200"/%3E%3Ctext x="50%25" y="50%25" font-size="3em" text-anchor="middle" dominant-baseline="middle"%3E${cat.emoji}%3C/text%3E%3C/svg%3E`,
+                  date: meta?.textContent || new Date().toLocaleDateString('fr-FR')
+                });
+              }
+            }
+          } catch (error) {
+            console.log(`Impossible de charger ${cat.slug}:`, error);
+          }
+        }
+
+        // Afficher les articles
+        if (articles.length > 0) {
+          container.innerHTML = articles.map(article => `
+            <a href="${article.url}" class="article-card">
+              <div class="article-image">
+                <img src="${article.image}" alt="${article.title}" loading="lazy" onerror="this.style.display='none'">
+              </div>
+              <div class="article-content">
+                <div class="article-meta">${article.emoji} ${article.category} • ${article.date}</div>
+                <h3>${article.title}</h3>
+                <p>Lire l'article complet...</p>
+                <div class="article-link">Lire →</div>
+              </div>
+            </a>
+          `).join('');
+        } else {
+          container.innerHTML = '<div class="no-articles">Aucun article pour le moment. Les articles seront publiés quotidiennement.</div>';
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des articles:', error);
+        container.innerHTML = '<div class="error">❌ Impossible de charger les articles</div>';
+      }
+    }
+
+    // Charger les articles au chargement de la page
+    window.addEventListener('load', loadArticles);
   </script>
 </body>
 </html>
