@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Finances Conseil France - Actualités Économiques</title>
+    <link>https://finances-conseil-france.fr</link>
+    <description>Actualités économiques, investissements et conseils financiers professionnels</description>
+    <language>fr-fr</language>
+    <lastBuildDate>Mon, 25 May 2026 16:03:15 +0200</lastBuildDate>
+    <atom:link href="https://finances-conseil-france.fr/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Actualités Finance</title>
+      <link>https://finances-conseil-france.fr/finance/</link>
+      <description>Dernières actualités en finance</description>
+      <pubDate>Mon, 25 May 2026 16:03:15 +0200</pubDate>
+    </item>
+    <item>
+      <title>Actualités Économie</title>
+      <link>https://finances-conseil-france.fr/economie/</link>
+      <description>Dernières actualités économiques</description>
+      <pubDate>Mon, 25 May 2026 16:03:15 +0200</pubDate>
+    </item>
+    <item>
+      <title>Actualités Crypto</title>
+      <link>https://finances-conseil-france.fr/crypto/</link>
+      <description>Dernières actualités crypto</description>
+      <pubDate>Mon, 25 May 2026 16:03:15 +0200</pubDate>
+    </item>
+    <item>
+      <title>Actualités Banques</title>
+      <link>https://finances-conseil-france.fr/banques/</link>
+      <description>Dernières actualités banques</description>
+      <pubDate>Mon, 25 May 2026 16:03:15 +0200</pubDate>
+    </item>
+    <item>
+      <title>Actualités Investissement</title>
+      <link>https://finances-conseil-france.fr/investissement/</link>
+      <description>Dernières actualités investissement</description>
+      <pubDate>Mon, 25 May 2026 16:03:15 +0200</pubDate>
+    </item>
+    <item>
+      <title>Actualités Immobilier</title>
+      <link>https://finances-conseil-france.fr/immobilier/</link>
+      <description>Dernières actualités immobilier</description>
+      <pubDate>Mon, 25 May 2026 16:03:15 +0200</pubDate>
+    </item>
+  </channel>
+</rss>
